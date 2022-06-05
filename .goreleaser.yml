@@ -1,0 +1,20 @@
+project_name: alp
+env:
+  - GO111MODULE=on
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - main: ./cli/alp/main.go
+    binary: alp
+    ldflags:
+      - -s -w
+    env:
+      - CGO_ENABLED=0
+    goarch:
+      - amd64
+      - arm64
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+release:
+  prerelease: auto
